@@ -18,7 +18,7 @@ public class ChechIncomeForMH {
 	
 	public static int DEFAULT_WAIT_TIME_IN_SEC = 10;
 	
-	public static final String fileNameBase = "F:\\ETH";
+	public static final String fileNameBase = "C:\\tmp\\ETH";
 	public static final String extension = ".dat";
 	
 	
@@ -52,18 +52,29 @@ public class ChechIncomeForMH {
     	/**/
     }
     
-    public static String getDataLine(){
-    	String urlPart1 = "https://www.cryptocompare.com/mining/calculator/eth?HashingPower=";
-    	String urlPart2 = "&HashingUnit=MH%2Fs&PowerConsumption=";
-    	String urlPart3 = "&CostPerkWh=";
-    	int hashPower = 1000;
-    	int powerConsumtion = 0;
-    	float energyCost = 0.15f;
+    
+    /**
+     * 
+     * @param currency e.g.: eth
+     * @param hashingPower in MH
+     * @param powerConsumption in kWh
+     * @param energyCostInUSD as a float value
+     * @return an integer value as a float with the estimated income for given parameters
+     */
+    public static float getIncomeValuePerMonthFor(String currency, float hashingPower, float powerConsumption, float energyCostInUSD){
+    	/*
+		Sample URL:
+    		https://www.cryptocompare.com/mining/calculator/eth?HashingPower=1000&HashingUnit=MH%2Fs&PowerConsumption=550&CostPerkWh=1.56
+    	 */
+    	String urlBase = "https://www.cryptocompare.com/mining/calculator/";
+    	String urlPart2 = "?HashingPower=";
+    	String urlPart3 = "&HashingUnit=MH%2Fs&PowerConsumption=";
+    	String urlPart4 = "&CostPerkWh=";
     	
-    	String composedUrl = urlPart1 + hashPower + urlPart2 + powerConsumtion + urlPart3 + energyCost;
+    	String composedUrl = urlBase + currency.toLowerCase() + urlPart2 + hashingPower + urlPart3 + powerConsumption + urlPart4 + energyCostInUSD;
     	
     	ArrayList<String> lines = getWebContentBodyFrom(composedUrl);
-	    	
+    	
     	String priceStr = "";
     	for(int i=0; i<lines.size(); i++){
     		if(lines.get(i).contains("Profit per month")){
@@ -74,10 +85,21 @@ public class ChechIncomeForMH {
     	
     	priceStr = (priceStr.split(" ")[1]);
     	priceStr = (priceStr.substring(0,priceStr.indexOf('.'))).replaceAll(",", "");
-    	Float price = Float.valueOf(priceStr) / 1000;
+    	float income = Float.valueOf(priceStr);
     	
-    	return (getCurrentDateStr() + "\t" + Float.toString(price));
+    	return income;
     }
+    
+    
+    /**
+     * Get data from web with request for calculation with hashingPower of 1000 MH and 0 power consumption  <br>
+     * and divide the given value with 1000 to get accurate income for 1 MH without any power cost.
+     * @return the date of enquiry and the estimated income for 1 MH hashingPower without any power consumption
+     */
+    public static String getDataLine(){
+    	return (getCurrentDateStr() + "\t" + Float.toString( getIncomeValuePerMonthFor("eth", 1f, 0, 0.15f) ));
+    }
+    
     
     public static ArrayList<String> getWebContentBodyFrom(String url){
     	System.setProperty("webdriver.chrome.driver", "c:\\Tools\\chromedriver.exe");
