@@ -1,0 +1,62 @@
+{
+	"Energy cost per kwh":0.155,
+	"Coins to check":[
+		{
+			"coin name":"Eth",
+			"short name":"eth"
+		},
+		{
+			"coin_nam":"Etc",
+			"short name":"etc"
+		}
+	],
+	"Configs to check":[
+		{
+			"config name":"Eth 2 GPU",
+			"total_hashing_power":51.2,
+			"unit":"MH",
+			"short name":"eth",
+			"power_consumption":285.0
+		},
+		{
+			"config name":"Eth 3 GPU",
+			"total_hashing_power":74.5,
+			"short name":"eth",
+			"power_consumption":442.0
+		},
+		{
+			"config name":"Etc 3 GPU",
+			"total_hashing_power":74.5,
+			"short name":"etc",
+			"power_consumption":442.0
+		}
+	],
+	"Configs to check_TEST":[
+		{
+			"config name":"Eth 2MH 1kw",
+			"total_hashing_power":2.0,
+			"unit":"MH",
+			"short name":"eth",
+			"power_consumption":1.0
+		},
+		{
+			"config name":"Eth 2 GPU",
+			"total_hashing_power":51.2,
+			"unit":"MH",
+			"short name":"eth",
+			"power_consumption":285.0
+		},
+		{
+			"config name":"Eth 3 GPU",
+			"total_hashing_power":74.0,
+			"short name":"eth",
+			"power_consumption":410.0
+		},
+		{
+			"config name":"Etc 3 GPU",
+			"total_hashing_power":74.0,
+			"short name":"etc",
+			"power_consumption":410.0
+		}
+	]
+}

@@ -1,5 +1,4 @@
-# Profitability checker
-An example project of selenium using ChromeWebDriver, HtmlUnitDriver, FirefoxFriver
+# Profitability checker 2
 
 
 ## Prerequisites ##
